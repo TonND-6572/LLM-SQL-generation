@@ -21,13 +21,29 @@ $(document).ready(function () {
         `
         $(wrapper_class).append(question_message);
         $('#chatInput').val('');
+
+        let textBoxValues = {};
+
+        for (let i = 0; i < textBoxIndex; i++) {
+            var table = $(`input[name=table-${i}]`).val(); // Add # to specify the ID in jQuery selector
+            var columns = $(`input[name=columns-${i}]`).val(); // Add # to specify the ID in jQuery selector
+
+            if (table && columns) {
+                const columnsArray = columns.split(',').map(item => item.trim());
+                textBoxValues[table] = columnsArray;
+            } else {
+                console.error('Table or Columns value is undefined or empty.');
+            }
+        }
+
         // Make an AJAX request
         $.ajax({
             type: 'POST',
             url: 'chat',
             data: {
                 'question': question,
-                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val(),
+                'tables': textBoxValues
             },
             success: function (response) {
                 // Handle the response
@@ -51,5 +67,17 @@ $(document).ready(function () {
                 console.log('Error:', error);
             }
         });
+    });
+
+    let textBoxIndex = 1;
+
+    // Function to add a new text box
+    $('#addTextBoxBtn').on('click', function() {
+        let newTextBox = `
+            <input type="text" class="form-control" placeholder="Your Text Here" aria-label="Your Text" aria-describedby="basic-addon2" name="table-${textBoxIndex}">
+            <input type="text" class="form-control" placeholder="Your Text Here" aria-label="Your Text" aria-describedby="basic-addon2" name="columns-${textBoxIndex}">
+        `;
+        $('#textBoxContainer').append(newTextBox);
+        textBoxIndex++;
     });
 });
