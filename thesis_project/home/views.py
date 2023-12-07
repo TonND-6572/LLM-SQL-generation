@@ -4,6 +4,7 @@ from django.shortcuts import HttpResponse
 from django.core import serializers
 from django.views.decorators.http import require_http_methods
 from .apps import HomeConfig
+import json
 # Create your views here.
 
 @require_http_methods(["GET"])
@@ -17,16 +18,13 @@ utils.ready()
 
 @require_http_methods(["POST"])
 def answer_sql(request):
-    tables = {
-        "people_name": ["id", "name"],
-        "people_age": ["people_id", "age"]
-    }
-    if request.method == "POST" and request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        form_data = request.POST
-        question = form_data.get('question')
-        answer = utils.inference(question=question, tables=tables)
-        response_data = {
-            'answer': answer
-        }
+    try:
+        json_data = json.loads(request.body.decode('utf-8'))
+        question = json_data.get('question', '')
+        print("question:", question)
+        answer = utils.inference(question)
+        response_data = {'answer': answer}
         return JsonResponse(response_data)
-    return JsonResponse({'error': 'Invalid request'}, status=400)
+    except json.JSONDecodeError as e:
+        print("JSON decoding error:", str(e))
+        return JsonResponse({'error': 'Invalid JSON data'}, status=400)
