@@ -5,6 +5,7 @@ from django.core import serializers
 from django.views.decorators.http import require_http_methods
 from .apps import HomeConfig
 import json
+from typing import Dict, List
 # Create your views here.
 
 @require_http_methods(["GET"])
