@@ -14,8 +14,8 @@ pip install -r /path/to/requirements.txt
 ```
 
 ### Download model
-first you need to download our model from here:
-You should save your dowloaded filer inside 'models' folder at the root of the project. 
+First you need to download our model from here: [ViText2Sql Model](https://drive.google.com/drive/folders/1RqdVzsuBgu2yP2w6kbUAUJ9g1NC6qjWb?usp=sharing)
+You should save your dowloaded filer inside **'models'** folder at the root of the project. 
 
 ### Run
 ```
@@ -32,3 +32,8 @@ Make sure you add table that you need to query in
 
 Make your question and ask our bot
 ![alt text](imgs/result.png)
+
+----
+## Additional infomation
+#### [Source training model](https://colab.research.google.com/drive/1V-Dlos__fHR9EYO3AnVbx0ykzIAd2hW-?usp=sharing)
+#### [Source dataset](https://github.com/wannabe-pro0001/ViText2Sql_Dataset)
