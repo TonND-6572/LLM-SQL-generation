@@ -54,6 +54,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function formatAMPM(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+      }      
+
     // Function to handle the click event for SUBMIT button
     function handleSubmitButtonClick() {
         // Get all elements with the class 'p-2' inside table-field
@@ -78,17 +89,17 @@ document.addEventListener("DOMContentLoaded", function () {
         var defaultString = `Tôi có bảng: ${formattedStrings.join('')}`
         // Concatenate all formatted strings
         var finalMessage = defaultString + `. Hãy trả lời bằng câu truy vấn: ${chatInput.value}`;
-
+        const now = new Date();
         var chatMessagesContainer = document.getElementById('wrapper_id');
             chatMessagesContainer.innerHTML += `
             <div class="chat-message-right mb-4">
             <div>
                 <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="rounded-circle mr-1" alt="Chris Wood" width="40" height="40">
-                <div class="text-muted small text-nowrap mt-2">2:35 am</div>
+                <div class="text-muted small text-nowrap mt-2">${formatAMPM(now)}</div>
             </div>
             <div class="flex-shrink-1 bg-light rounded py-2 px-3 mr-3">
                 <div class="font-weight-bold mb-1">You</div>
-                ${finalMessage}
+                ${chatInput.value}
             </div>
         </div>`;
         // Log or use the final message as needed
@@ -113,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
             chatMessagesContainer.innerHTML += `<div class="chat-message-left pb-4">
             <div>
                 <img src="https://bootdey.com/img/Content/avatar/avatar3.png" class="rounded-circle mr-1" alt="Sharon Lessman" width="40" height="40">
-                <div class="text-muted small text-nowrap mt-2">2:34 am</div>
+                <div class="text-muted small text-nowrap mt-2">${formatAMPM(now)}</div>
             </div>
             <div class="flex-shrink-1 bg-light rounded py-2 px-3 ml-3">
                 <div class="font-weight-bold mb-1">Sharon Lessman</div>

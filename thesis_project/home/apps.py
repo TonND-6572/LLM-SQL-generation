@@ -9,9 +9,7 @@ class HomeConfig(AppConfig):
 
     def ready(self):
         # Load the model and tokenizer when the app starts
-        # model_name = 'models/ViText2Sql-ViT5-finetuning-2'
         model_name = 'models/Ver3-ViText2Sql-ViT5'
-        # model_name = 'models/ViText2Sql-ViT5'
         self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
         self.tokenizer = AutoTokenizer.from_pretrained(model_name)
 
