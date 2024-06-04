@@ -28,7 +28,7 @@ When you first open project
 ![alt text](imgs/first.png)
 
 Make sure you add table that you need to query in
-![alt text](imgs/image.png)
+![alt text](imgs/add-table.png)
 
 Make your question and ask our bot
-![alt text](imgs/add-table.png)
+![alt text](imgs/result.png)
